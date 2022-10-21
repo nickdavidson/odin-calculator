@@ -25,11 +25,6 @@ function operate(operator, num1, num2){
 
 //Add function to input value into Array
 
-//Add function to convert array to Integer
-
-//Add function to update display field
-
-
 function updateDisplay(array){
     const outputBox = document.querySelector("#output-area");
     outputBox.textContent = array.join('');
@@ -38,9 +33,5 @@ function updateDisplay(array){
 function arrayToNumber(array){
     return Number(array.join(''));
 }
-
-console.log(typeof displayArray.join(''));
-console.log(typeof arrayToNumber(displayArray));
-
 
 //Create register array
