@@ -15,3 +15,17 @@ function operate(operator, num1, num2){
             console.log('ERROR, NO SUCH OPERATOR');
     }
 }
+
+//Get digit buttons and assign values - add click listener to send value to displayArray
+
+//Get operator buttons - store number in register and operator in register on click
+
+//Equal operator takes last two numbers in register, and last operator in register, output to displayArray
+
+//Add function to input value into Array
+
+//Add function to convert array to Integer
+
+//Add function to update display field
+
+//Create register array
