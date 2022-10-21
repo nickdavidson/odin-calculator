@@ -35,4 +35,12 @@ function updateDisplay(array){
     outputBox.textContent = array.join('');
 }
 
+function arrayToNumber(array){
+    return Number(array.join(''));
+}
+
+console.log(typeof displayArray.join(''));
+console.log(typeof arrayToNumber(displayArray));
+
+
 //Create register array
