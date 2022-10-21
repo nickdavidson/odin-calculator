@@ -1,5 +1,6 @@
 const DISPLAY_DIGIT_MAX = 10;
-const displayArray = new Array(DISPLAY_DIGIT_MAX);
+//const displayArray = new Array(DISPLAY_DIGIT_MAX);
+const displayArray = [8, 0, 0, 8, 5];
 
 function operate(operator, num1, num2){
     switch(operator) {
@@ -27,5 +28,11 @@ function operate(operator, num1, num2){
 //Add function to convert array to Integer
 
 //Add function to update display field
+
+
+function updateDisplay(array){
+    const outputBox = document.querySelector("#output-area");
+    outputBox.textContent = array.join('');
+}
 
 //Create register array
