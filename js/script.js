@@ -19,6 +19,12 @@ function operate(operator, num1, num2){
 
 //Get digit buttons and assign values - add click listener to send value to displayArray
 
+
+
+function digitToArray(digit, array){
+    array.push(digit);
+}
+
 //Get operator buttons - store number in register and operator in register on click
 
 //Equal operator takes last two numbers in register, and last operator in register, output to displayArray
