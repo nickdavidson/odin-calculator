@@ -44,23 +44,32 @@ function digitToArray(digit, array){
 
 //Get operator buttons - store number in register and operator in register on click
 
-const addButton = document.querySelector('#add-btn');
+let lastOperation;
 
-/******BUG - pressing + multiple times keeps adding the operand to itself *******/
-addButton.addEventListener("click", function(){
-    if(registerArray[0]){ //if there is something in the register
-        let operand = operate(ADD_OP, registerArray.pop(), arrayToNumber(displayArray)); //operate on register number and display number
-        console.log(registerArray.length)
-        registerArray.push(operand);
-        clearArray(displayArray);
-        digitToArray(operand, displayArray);
-    } else{
+const addButton = document.querySelector('#add-btn');
+addButton.operator = ADD_OP;
+addButton.addEventListener("click", operationEvent);
+
+const subtractButton = document.querySelector('#sub-btn');
+subtractButton.operator = SUB_OP;
+subtractButton.addEventListener("click", operationEvent);
+
+function operationEvent(){
+    if(registerArray[0]){                               //if there is something in the register
+        if(!waitingForInput){                           //and not waiting for input
+            let operand = operate(lastOperation, registerArray.pop(), arrayToNumber(displayArray)); //operate on register number and display number
+            registerArray.push(operand);                //put result in the register
+            clearArray(displayArray);       
+            digitToArray(operand, displayArray);
+        }
+    }
+    else{
         registerArray.push(arrayToNumber(displayArray));
         
     }
     waitingForInput = true;
-    console.log(registerArray);
-});
+    lastOperation = this.operator;
+}
 
 //Equal operator takes last two numbers in register, and last operator in register, output to displayArray
 
