@@ -1,6 +1,6 @@
 const DISPLAY_DIGIT_MAX = 10;
 //const displayArray = new Array(DISPLAY_DIGIT_MAX);
-const displayArray = [8, 0, 0, 8, 5];
+const displayArray = [];
 
 function operate(operator, num1, num2){
     switch(operator) {
@@ -17,19 +17,22 @@ function operate(operator, num1, num2){
     }
 }
 
-//Get digit buttons and assign values - add click listener to send value to displayArray
+const digitButtons = document.querySelectorAll(".digit-btn");
 
-
+digitButtons.forEach(function(btn) {
+    btn.addEventListener("click", function(){
+        digitToArray(btn.textContent, displayArray);
+    });
+});
 
 function digitToArray(digit, array){
     array.push(digit);
+    updateDisplay(array);
 }
 
 //Get operator buttons - store number in register and operator in register on click
 
 //Equal operator takes last two numbers in register, and last operator in register, output to displayArray
-
-//Add function to input value into Array
 
 function updateDisplay(array){
     const outputBox = document.querySelector("#output-area");
