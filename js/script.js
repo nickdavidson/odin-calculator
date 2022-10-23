@@ -103,6 +103,15 @@ equalsButton.addEventListener("click", function(){
     console.log(registerArray);
 });
 
+const clearButton = document.querySelector('#clear-btn');
+clearButton.addEventListener("click", function(){
+    clearArray(displayArray);
+    clearArray(registerArray);
+    lastOperation = null;
+    lastOperand = null;
+    updateDisplay(displayArray);
+});
+
 function updateDisplay(array){
     const outputBox = document.querySelector("#output-area");
     outputBox.textContent = array.join('');
