@@ -68,23 +68,40 @@ divideButton.operator = DIV_OP;
 divideButton.addEventListener("click", operationEvent);
 
 function operationEvent(){
-    if(registerArray[0]){                               //if there is something in the register
-        if(!waitingForInput){                           //and not waiting for input
+    if(registerArray[0] && !lastOperand){                               //if there is something in the register, and there is no final operand
+        if(!waitingForInput){                                           //and not waiting for input
             let operand = operate(lastOperation, registerArray.pop(), arrayToNumber(displayArray)); //operate on register number and display number
-            registerArray.push(operand);                //put result in the register
+            registerArray.push(operand);                                //put result in the register
             clearArray(displayArray);       
             digitToArray(operand, displayArray);
         }
     }
     else{
+        if(lastOperand) {                           //if a final operand has been set by a call to equals
+            registerArray.pop();                    //empty the register
+            lastOperand = null;
+        }
         registerArray.push(arrayToNumber(displayArray));
-        
     }
     waitingForInput = true;
     lastOperation = this.operator;
+    console.log(registerArray);
 }
 
 //Equal operator takes last two numbers in register, and last operator in register, output to displayArray
+let lastOperand;
+
+const equalsButton = document.querySelector('#eql-btn');
+equalsButton.addEventListener("click", function(){
+    if(!lastOperand){
+        lastOperand = arrayToNumber(displayArray);          //if not already set, set the operand to use on successive equals inputs
+    }
+    let result = operate(lastOperation, registerArray.pop(), lastOperand);
+    registerArray.push(result);                
+    clearArray(displayArray);       
+    digitToArray(result, displayArray);
+    console.log(registerArray);
+});
 
 function updateDisplay(array){
     const outputBox = document.querySelector("#output-area");
