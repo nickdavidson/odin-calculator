@@ -19,7 +19,12 @@ function operate(operator, num1, num2){
         case 'MULTIPLY':
             return num1 * num2;
         case 'DIVIDE':
-            return num1/num2;
+            if(num2!=0){
+                return num1/num2;
+            }
+            else{
+                return "Err - cannot divide by zero"
+            }
         default:
             console.log('ERROR, NO SUCH OPERATOR');
     }
@@ -53,6 +58,10 @@ addButton.addEventListener("click", operationEvent);
 const subtractButton = document.querySelector('#sub-btn');
 subtractButton.operator = SUB_OP;
 subtractButton.addEventListener("click", operationEvent);
+
+const multiplyButton = document.querySelector('#multi-btn');
+multiplyButton.operator = MULT_OP;
+multiplyButton.addEventListener("click", operationEvent);
 
 function operationEvent(){
     if(registerArray[0]){                               //if there is something in the register
