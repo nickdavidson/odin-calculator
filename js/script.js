@@ -63,6 +63,10 @@ const multiplyButton = document.querySelector('#multi-btn');
 multiplyButton.operator = MULT_OP;
 multiplyButton.addEventListener("click", operationEvent);
 
+const divideButton = document.querySelector('#div-btn');
+divideButton.operator = DIV_OP;
+divideButton.addEventListener("click", operationEvent);
+
 function operationEvent(){
     if(registerArray[0]){                               //if there is something in the register
         if(!waitingForInput){                           //and not waiting for input
