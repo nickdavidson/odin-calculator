@@ -47,8 +47,6 @@ function digitToArray(digit, array){
     updateDisplay(array);
 }
 
-//Get operator buttons - store number in register and operator in register on click
-
 let lastOperation;
 
 const addButton = document.querySelector('#add-btn');
@@ -87,8 +85,6 @@ function operationEvent(){
     lastOperation = this.operator;
     console.log(registerArray);
 }
-
-//Equal operator takes last two numbers in register, and last operator in register, output to displayArray
 let lastOperand;
 
 const equalsButton = document.querySelector('#eql-btn');
@@ -96,11 +92,13 @@ equalsButton.addEventListener("click", function(){
     if(!lastOperand){
         lastOperand = arrayToNumber(displayArray);          //if not already set, set the operand to use on successive equals inputs
     }
-    let result = operate(lastOperation, registerArray.pop(), lastOperand);
-    registerArray.push(result);                
-    clearArray(displayArray);       
-    digitToArray(result, displayArray);
-    console.log(registerArray);
+    if(registerArray[0] && lastOperand){
+        let result = operate(lastOperation, registerArray.pop(), lastOperand);
+        registerArray.push(result);                
+        clearArray(displayArray);       
+        digitToArray(result, displayArray);
+        console.log(registerArray);
+    }
 });
 
 const clearButton = document.querySelector('#clear-btn');
