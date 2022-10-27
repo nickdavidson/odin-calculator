@@ -1,5 +1,9 @@
 /* TO DO 
-    -Add decimal button + decimal rounding
+    -decimal rounding
+    -add leading zero to decimal < 1
+    -prevent leading zeros for non-decimals
+    -fix input ignored after equals pressed
+    - add +/- button
     -Backspace button
     -Keyboard support
 */
@@ -15,6 +19,7 @@ const MULT_OP = "MULTIPLY";
 const DIV_OP = "DIVIDE";
 
 let waitingForInput = false;
+let hasDecimal = false;
 
 function operate(operator, num1, num2){
     switch(operator) {
@@ -41,6 +46,12 @@ digitButtons.forEach(function(btn) {
         }
         digitToArray(btn.textContent, displayArray);
     });
+});
+
+const decimalButton = document.querySelector("#dec-btn");
+decimalButton.addEventListener("click", function(){
+    hasDecimal = true;
+    this.disabled = true;
 });
 
 function digitToArray(digit, array){
@@ -91,6 +102,10 @@ function operationEvent(){
     }
     waitingForInput = true;
     lastOperation = this.operator;
+    if(hasDecimal){
+        hasDecimal = false;
+        decimalButton.disabled = false;
+    }
     console.log(registerArray);
 }
 let lastOperand;
@@ -115,6 +130,11 @@ equalsButton.addEventListener("click", function(){
         }
         
         console.log(registerArray);
+    }
+    waitingForInput = true;
+    if(hasDecimal){
+        hasDecimal = false;
+        decimalButton.disabled = false;
     }
 });
 
