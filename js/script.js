@@ -1,8 +1,6 @@
 /* TO DO 
     -decimal rounding
     -add leading zero to decimal < 1
-    -prevent leading zeros for non-decimals
-    -fix input ignored after equals pressed
     - add +/- button
     -Backspace button
     -Keyboard support
@@ -123,22 +121,33 @@ equalsButton.addEventListener("click", function(){
     if(lastOperand==undefined){
         lastOperand = arrayToNumber(displayArray);          //if not already set, set the operand to use on successive equals inputs
     }
-    console.log(registerArray);
-    console.log(displayArray);
+    let result;
+    console.log(`Register: ${registerArray}`);
+    console.log(`Display: ${displayArray}`);
+    console.log(`Last operation: ${lastOperation}`);
     console.log(`Last operand: ${lastOperand}`);
     if(registerArray.length && lastOperand!=undefined){
         if(lastOperation===DIV_OP && lastOperand===0){
             divideByZero();
         }
         else {
-            let result = operate(lastOperation, registerArray.pop(), lastOperand);
-            registerArray.push(result);                
+            result = operate(lastOperation, registerArray.pop(), lastOperand);        
             clearArray(displayArray);       
             digitToArray(result, displayArray);
         }
-        
-        console.log(registerArray);
     }
+
+    else if(lastOperation!=undefined && lastOperand!=undefined){
+        if(lastOperation===DIV_OP && lastOperand===0){
+            divideByZero();
+        }
+        else {
+            result = operate(lastOperation, arrayToNumber(displayArray), lastOperand);             
+            clearArray(displayArray);       
+            digitToArray(result, displayArray);
+        }
+    }
+
     waitingForInput = true;
     if(hasDecimal){
         hasDecimal = false;
@@ -152,6 +161,9 @@ clearButton.addEventListener("click", function(){
     clearArray(registerArray);
     lastOperation = undefined;
     lastOperand = undefined;
+    digitToArray("0", displayArray);
+    waitingForInput = true;
+    hasDecimal = false;
     updateDisplay(displayArray);
 });
 
