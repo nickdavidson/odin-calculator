@@ -18,6 +18,10 @@ const DIV_OP = "DIVIDE";
 let waitingForInput = true;
 let hasDecimal = false;
 
+let testArray = ["4",".","0","0","5","0","0","0","0","0","0","0","0","0","0"]
+trimZeros(testArray);
+console.log(testArray);
+
 digitToArray("0", displayArray); //initialize calculator with a 0;
 
 function operate(operator, num1, num2){
@@ -42,6 +46,9 @@ digitButtons.forEach(function(btn) {
         if(btn.textContent==="0" && displayArray[0]==="0"){ //if the zero key is pressed while 0 is the leading digit
             if(!hasDecimal){                                //if there is no decimal after the leading zero
                 waitingForInput = true;                     //do nothing and keep waiting for input
+            }
+            else {
+                digitToArray(btn.textContent, displayArray);
             }
         }
 
@@ -88,15 +95,15 @@ divideButton.operator = DIV_OP;
 divideButton.addEventListener("click", operationEvent);
 
 function operationEvent(){
-    if(registerArray.length && lastOperand==undefined){                               //if there is something in the register, and there is no final operand
-        if(!waitingForInput){                //and not waiting for input
+    if(registerArray.length && lastOperand==undefined){              //if there is something in the register, and there is no final operand
+        if(!waitingForInput){                                       //and not waiting for input
             let num1 = registerArray.pop();
             let num2 = arrayToNumber(displayArray);
             if(lastOperation===DIV_OP && num2==0){
                 divideByZero();
             }
             else {
-                let operand = operate(lastOperation, num1, num2); //operate on register number and display number
+                let operand = operate(lastOperation, num1, num2);           //operate on register number and display number
                 registerArray.push(operand);                                //put result in the register
                 clearArray(displayArray);       
                 digitToArray(operand, displayArray);
@@ -105,7 +112,7 @@ function operationEvent(){
     }
     else{
         if(lastOperand!=undefined) {                           //if a final operand has been set by a call to equals
-            registerArray.pop();                    //empty the register
+            registerArray.pop();                                //empty the register
             lastOperand = undefined;
         }
         registerArray.push(arrayToNumber(displayArray));
@@ -113,6 +120,8 @@ function operationEvent(){
     waitingForInput = true;
     lastOperation = this.operator;
     if(hasDecimal){
+        trimZeros(displayArray);
+        updateDisplay(displayArray);
         hasDecimal = false;
         decimalButton.disabled = false;
     }
@@ -154,6 +163,8 @@ equalsButton.addEventListener("click", function(){
 
     waitingForInput = true;
     if(hasDecimal){
+        trimZeros(displayArray);
+        updateDisplay(displayArray);
         hasDecimal = false;
         decimalButton.disabled = false;
     }
@@ -194,4 +205,15 @@ function divideByZero(){
     const outputBox = document.querySelector("#output-area");
     outputBox.textContent = "Error - Cannot Divide By Zero";
     waitingForInput = true;
+}
+
+function trimZeros(array){
+    let end = array.length-1;
+    while(array[end]=="0"){
+        array.pop();
+        end--;
+        if(array[end]=="."){
+            array.pop();
+        }
+    }
 }
