@@ -1,6 +1,5 @@
 /* TO DO 
     -decimal rounding
-    -add leading zero to decimal < 1
     - add +/- button
     -Backspace button
     -Keyboard support
@@ -41,12 +40,17 @@ const digitButtons = document.querySelectorAll(".digit-btn");
 digitButtons.forEach(function(btn) {
     btn.addEventListener("click", function(){
         if(btn.textContent==="0" && displayArray[0]==="0"){ //if the zero key is pressed while 0 is the leading digit
-            waitingForInput = true;                         //do nothing and keep waiting for input
+            if(!hasDecimal){                                //if there is no decimal after the leading zero
+                waitingForInput = true;                     //do nothing and keep waiting for input
+            }
         }
 
         else {                                              //otherwise
             if(waitingForInput){                            //if waiting for input, clear the array, stop waiting
                 clearArray(displayArray);
+                if(btn.textContent==="."){                  //if decimal is entered before an integer, display leading zero
+                    digitToArray("0", displayArray);
+                }
                 waitingForInput = false;
             }
             digitToArray(btn.textContent, displayArray);    //accept digit entry into array
