@@ -180,13 +180,15 @@ clearButton.addEventListener("click", function(){
 
 const backspaceButton = document.querySelector('#backspace-btn');
 backspaceButton.addEventListener("click", function(){
-    if(displayArray.length>1){
-        displayArray.pop();
-    } else if(displayArray.length==1){
-        displayArray[0] = "0";
-        waitingForInput = true;
+    if(!waitingForInput){
+        if(displayArray.length>1){
+            displayArray.pop();
+        } else if(displayArray.length==1){
+            displayArray[0] = "0";
+            waitingForInput = true;
+        }
+        updateDisplay(displayArray);
     }
-    updateDisplay(displayArray);
 });
 
 function updateDisplay(array){
