@@ -1,6 +1,6 @@
 /* TO DO 
-    -decimal rounding
-    - add +/- button
+    -Decimal rounding
+    -Add +/- button
     -Backspace button
     -Keyboard support
 */
@@ -17,10 +17,6 @@ const DIV_OP = "DIVIDE";
 
 let waitingForInput = true;
 let hasDecimal = false;
-
-let testArray = ["4",".","0","0","5","0","0","0","0","0","0","0","0","0","0"]
-trimZeros(testArray);
-console.log(testArray);
 
 digitToArray("0", displayArray); //initialize calculator with a 0;
 
