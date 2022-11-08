@@ -178,6 +178,17 @@ clearButton.addEventListener("click", function(){
     updateDisplay(displayArray);
 });
 
+const backspaceButton = document.querySelector('#backspace-btn');
+backspaceButton.addEventListener("click", function(){
+    if(displayArray.length>1){
+        displayArray.pop();
+    } else if(displayArray.length==1){
+        displayArray[0] = "0";
+        waitingForInput = true;
+    }
+    updateDisplay(displayArray);
+});
+
 function updateDisplay(array){
     const outputBox = document.querySelector("#output-area");
     outputBox.textContent = array.join('');
