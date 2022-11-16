@@ -1,11 +1,10 @@
 /* TO DO 
-    -Decimal rounding
     -Add +/- button
-    -Backspace button
     -Keyboard support
 */
 
 const DISPLAY_DIGIT_MAX = 10;
+const DECIMAL_DIGITS_MAX = 5;
 //const displayArray = new Array(DISPLAY_DIGIT_MAX);
 const displayArray = [];
 const registerArray = [];
@@ -21,18 +20,30 @@ let hasDecimal = false;
 digitToArray("0", displayArray); //initialize calculator with a 0;
 
 function operate(operator, num1, num2){
+    let result;
+
     switch(operator) {
         case 'ADD':
-            return num1 + num2;
+            result = num1 + num2;
+            break;
         case 'SUBTRACT':
-            return num1 - num2;
+            result = num1 - num2;
+            break;
         case 'MULTIPLY':
-            return num1 * num2;
+            result = num1 * num2;
+            break;
         case 'DIVIDE':
-            return num1/num2;
+            result = num1/num2;
+            break;
         default:
             console.log('ERROR, NO SUCH OPERATOR');
     }
+
+    return round(result, DECIMAL_DIGITS_MAX);
+}
+
+function round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
 
 const digitButtons = document.querySelectorAll(".digit-btn");
