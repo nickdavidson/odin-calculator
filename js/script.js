@@ -1,5 +1,4 @@
 /* TO DO 
-    -Add +/- button
     -Keyboard support
 */
 
@@ -16,6 +15,7 @@ const DIV_OP = "DIVIDE";
 
 let waitingForInput = true;
 let hasDecimal = false;
+let isNegative = false;
 
 digitToArray("0", displayArray); //initialize calculator with a 0;
 
@@ -69,6 +69,7 @@ digitButtons.forEach(function(btn) {
             }
             digitToArray(btn.textContent, displayArray);    //accept digit entry into array
         }
+        console.log(displayArray);
     });
 });
 
@@ -202,6 +203,14 @@ backspaceButton.addEventListener("click", function(){
     }
 });
 
+const positivityButton = document.querySelector('#positivity-btn');
+positivityButton.addEventListener("click", function(){
+    if(!waitingForInput){
+        togglePositivity(displayArray);
+        updateDisplay(displayArray);
+    }
+});
+
 function updateDisplay(array){
     const outputBox = document.querySelector("#output-area");
     outputBox.textContent = array.join('');
@@ -235,5 +244,14 @@ function trimZeros(array){
         if(array[end]=="."){
             array.pop();
         }
+    }
+}
+
+function togglePositivity(array){
+    if(array[0]==="-"){
+        array.shift();
+    }
+    else{
+        array.unshift("-");
     }
 }
