@@ -18,8 +18,6 @@ let isNegative = false;
 
 digitToArray("0", displayArray); //initialize calculator with a 0;
 
-console.log(round(18388608, 20));
-
 function operate(operator, num1, num2){
     let result;
 
@@ -40,9 +38,16 @@ function operate(operator, num1, num2){
             console.log('ERROR, NO SUCH OPERATOR');
     }
 
-    let DECIMAL_DIGITS_MAX = DISPLAY_DIGIT_MAX;
+    let DECIMAL_DIGIT_MAX = DISPLAY_DIGIT_MAX - getNumberOfDigits(result);
+    let resultStr = (result.toFixed(DECIMAL_DIGIT_MAX)).toString();
 
-    return result.toPrecision(DISPLAY_DIGIT_MAX);
+    while(resultStr.charAt(resultStr.length-1)=="0"){
+        resultStr = resultStr.slice(0, -1);
+        console.log("hit" + " " + resultStr);
+    }
+
+    return Number(resultStr);
+
 }
 
 function getNumberOfDigits(number) {
