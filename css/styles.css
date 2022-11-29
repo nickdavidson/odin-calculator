@@ -51,6 +51,10 @@ button:active {
     transition: 0.2s;
 }
 
+button:hover {
+    border: 2px solid black;
+}
+
 #btn-0 {
     grid-column: auto / span 2;
 }
