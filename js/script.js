@@ -2,8 +2,7 @@
     -Keyboard support
 */
 
-const DISPLAY_DIGIT_MAX = 10;
-const DECIMAL_DIGITS_MAX = 5;
+const DISPLAY_DIGIT_MAX = 14;
 //const displayArray = new Array(DISPLAY_DIGIT_MAX);
 const displayArray = [];
 const registerArray = [];
@@ -18,6 +17,8 @@ let hasDecimal = false;
 let isNegative = false;
 
 digitToArray("0", displayArray); //initialize calculator with a 0;
+
+console.log(round(18388608, 20));
 
 function operate(operator, num1, num2){
     let result;
@@ -39,11 +40,22 @@ function operate(operator, num1, num2){
             console.log('ERROR, NO SUCH OPERATOR');
     }
 
-    return round(result, DECIMAL_DIGITS_MAX);
+    let DECIMAL_DIGITS_MAX = DISPLAY_DIGIT_MAX;
+
+    return result.toPrecision(DISPLAY_DIGIT_MAX);
 }
 
-function round(value, decimals) {
-    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+function getNumberOfDigits(number) {
+    let numberStr = number.toString();
+    if(numberStr){
+        leftDigits = numberStr.split('.');
+        if(leftDigits && leftDigits.length == 2){
+            return leftDigits[0].length;
+        }
+        else{
+            return 0;
+        }
+    }
 }
 
 const digitButtons = document.querySelectorAll(".digit-btn");
