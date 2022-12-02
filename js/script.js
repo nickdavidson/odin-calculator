@@ -290,10 +290,18 @@ function togglePositivity(array){
 
 document.addEventListener('keydown', function(event){
     console.log(`Key: ${event.key} Type: ${typeof(event.key)}`);
-    let digitKeys = new RegExp("[0-9]");
+    let digitKeys = new RegExp("^[0-9]");
     
     if(event.key.match(digitKeys)){
         digitInputEvent(event.key);
+    }
+
+    if(event.key=="."){
+        if(!hasDecimal){
+            digitInputEvent(event.key);
+            hasDecimal = true;
+            decimalButton.disabled = true;
+        }
     }
 
     if(event.key=="+"){
