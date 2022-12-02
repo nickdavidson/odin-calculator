@@ -67,28 +67,32 @@ const digitButtons = document.querySelectorAll(".digit-btn");
 
 digitButtons.forEach(function(btn) {
     btn.addEventListener("click", function(){
-        if(btn.textContent==="0" && displayArray[0]==="0"){ //if the zero key is pressed while 0 is the leading digit
-            if(!hasDecimal){                                //if there is no decimal after the leading zero
-                waitingForInput = true;                     //do nothing and keep waiting for input
-            }
-            else {
-                digitToArray(btn.textContent, displayArray);
-            }
-        }
-
-        else {                                              //otherwise
-            if(waitingForInput){                            //if waiting for input, clear the array, stop waiting
-                clearArray(displayArray);
-                if(btn.textContent==="."){                  //if decimal is entered before an integer, display leading zero
-                    digitToArray("0", displayArray);
-                }
-                waitingForInput = false;
-            }
-            digitToArray(btn.textContent, displayArray);    //accept digit entry into array
-        }
-        console.log(displayArray);
+        digitInputEvent(btn.textContent);
     });
 });
+
+function digitInputEvent(digitString){
+    if(digitString==="0" && displayArray[0]==="0"){ //if the zero key is pressed while 0 is the leading digit
+        if(!hasDecimal){                                //if there is no decimal after the leading zero
+            waitingForInput = true;                     //do nothing and keep waiting for input
+        }
+        else {
+            digitToArray(digitString, displayArray);
+        }
+    }
+
+    else {                                              //otherwise
+        if(waitingForInput){                            //if waiting for input, clear the array, stop waiting
+            clearArray(displayArray);
+            if(digitString==="."){                  //if decimal is entered before an integer, display leading zero
+                digitToArray("0", displayArray);
+            }
+            waitingForInput = false;
+        }
+        digitToArray(digitString, displayArray);    //accept digit entry into array
+    }
+    console.log(displayArray);
+}
 
 const decimalButton = document.querySelector("#dec-btn");
 decimalButton.addEventListener("click", function(){
@@ -272,3 +276,14 @@ function togglePositivity(array){
         array.unshift("-");
     }
 }
+
+document.addEventListener('keypress', function(event){
+
+    let digitKeys = new RegExp("[0-9]");
+
+    if(event.key.match(digitKeys)){
+        console.log(event.key);
+        console.log(typeof(event.key));
+        digitInputEvent(event.key);
+    }
+});
