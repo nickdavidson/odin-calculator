@@ -109,21 +109,30 @@ let lastOperation;
 
 const addButton = document.querySelector('#add-btn');
 addButton.operator = ADD_OP;
-addButton.addEventListener("click", operationEvent);
+addButton.addEventListener("click", function(){
+    operationEvent(this.operator);
+});
 
 const subtractButton = document.querySelector('#sub-btn');
 subtractButton.operator = SUB_OP;
-subtractButton.addEventListener("click", operationEvent);
+subtractButton.addEventListener("click", function(){
+    operationEvent(this.operator);
+});
 
 const multiplyButton = document.querySelector('#multi-btn');
 multiplyButton.operator = MULT_OP;
-multiplyButton.addEventListener("click", operationEvent);
+multiplyButton.addEventListener("click", function(){
+    operationEvent(this.operator);
+});
 
 const divideButton = document.querySelector('#div-btn');
 divideButton.operator = DIV_OP;
-divideButton.addEventListener("click", operationEvent);
+divideButton.addEventListener("click", function(){
+    operationEvent(this.operator);
+});
 
-function operationEvent(){
+function operationEvent(operator){
+    console.log(`${operator}`);
     if(registerArray.length && lastOperand==undefined){              //if there is something in the register, and there is no final operand
         if(!waitingForInput){                                       //and not waiting for input
             let num1 = registerArray.pop();
@@ -147,7 +156,8 @@ function operationEvent(){
         registerArray.push(arrayToNumber(displayArray));
     }
     waitingForInput = true;
-    lastOperation = this.operator;
+    lastOperation = operator;
+    
     if(hasDecimal){
         trimZeros(displayArray);
         updateDisplay(displayArray);
@@ -156,6 +166,7 @@ function operationEvent(){
     }
     console.log(registerArray);
 }
+
 let lastOperand;
 
 const equalsButton = document.querySelector('#eql-btn');
@@ -277,13 +288,24 @@ function togglePositivity(array){
     }
 }
 
-document.addEventListener('keypress', function(event){
-
+document.addEventListener('keydown', function(event){
+    console.log(`Key: ${event.key} Type: ${typeof(event.key)}`);
     let digitKeys = new RegExp("[0-9]");
-
+    
     if(event.key.match(digitKeys)){
-        console.log(event.key);
-        console.log(typeof(event.key));
         digitInputEvent(event.key);
+    }
+
+    if(event.key=="+"){
+        operationEvent(ADD_OP);
+    }
+    if(event.key=="-"){
+        operationEvent(SUB_OP);
+    }
+    if(event.key=="*"){
+        operationEvent(MULT_OP);
+    }
+    if(event.key=="/"){
+        operationEvent(DIV_OP);
     }
 });
