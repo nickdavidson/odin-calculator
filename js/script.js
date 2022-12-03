@@ -188,15 +188,7 @@ clearButton.addEventListener("click", function(){
 
 const backspaceButton = document.querySelector('#backspace-btn');
 backspaceButton.addEventListener("click", function(){
-    if(!waitingForInput){
-        if(displayArray.length>1){
-            displayArray.pop();
-        } else if(displayArray.length==1){
-            displayArray[0] = "0";
-            waitingForInput = true;
-        }
-        updateDisplay(displayArray);
-    }
+    backspaceEvent();
 });
 
 const positivityButton = document.querySelector('#positivity-btn');
@@ -206,6 +198,18 @@ positivityButton.addEventListener("click", function(){
         updateDisplay(displayArray);
     }
 });
+
+function backspaceEvent() {
+    if (!waitingForInput) {
+        if (displayArray.length > 1) {
+            displayArray.pop();
+        } else if (displayArray.length == 1) {
+            displayArray[0] = "0";
+            waitingForInput = true;
+        }
+        updateDisplay(displayArray);
+    }
+}
 
 function equalsEvent() {
     if (lastOperand == undefined) {
@@ -324,5 +328,9 @@ document.addEventListener('keydown', function(event){
 
     if(event.key=="Enter" || event.key=="="){
         equalsEvent();
+    }
+
+    if(event.key=="Backspace"){
+        backspaceEvent();
     }
 });
