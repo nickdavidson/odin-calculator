@@ -293,6 +293,7 @@ function togglePositivity(array){
 }
 
 document.addEventListener('keydown', function(event){
+    event.preventDefault();
     console.log(`Key: ${event.key} Type: ${typeof(event.key)}`);
     let digitKeys = new RegExp("^[0-9]");
     
@@ -319,5 +320,9 @@ document.addEventListener('keydown', function(event){
     }
     if(event.key=="/"){
         operationEvent(DIV_OP);
+    }
+
+    if(event.key=="Enter" || event.key=="="){
+        equalsEvent();
     }
 });
