@@ -171,43 +171,7 @@ let lastOperand;
 
 const equalsButton = document.querySelector('#eql-btn');
 equalsButton.addEventListener("click", function(){
-    if(lastOperand==undefined){
-        lastOperand = arrayToNumber(displayArray);          //if not already set, set the operand to use on successive equals inputs
-    }
-    let result;
-    console.log(`Register: ${registerArray}`);
-    console.log(`Display: ${displayArray}`);
-    console.log(`Last operation: ${lastOperation}`);
-    console.log(`Last operand: ${lastOperand}`);
-    if(registerArray.length && lastOperand!=undefined){
-        if(lastOperation===DIV_OP && lastOperand===0){
-            divideByZero();
-        }
-        else {
-            result = operate(lastOperation, registerArray.pop(), lastOperand);        
-            clearArray(displayArray);       
-            digitToArray(result, displayArray);
-        }
-    }
-
-    else if(lastOperation!=undefined && lastOperand!=undefined){
-        if(lastOperation===DIV_OP && lastOperand===0){
-            divideByZero();
-        }
-        else {
-            result = operate(lastOperation, arrayToNumber(displayArray), lastOperand);             
-            clearArray(displayArray);       
-            digitToArray(result, displayArray);
-        }
-    }
-
-    waitingForInput = true;
-    if(hasDecimal){
-        trimZeros(displayArray);
-        updateDisplay(displayArray);
-        hasDecimal = false;
-        decimalButton.disabled = false;
-    }
+    equalsEvent();
 });
 
 const clearButton = document.querySelector('#clear-btn');
@@ -242,6 +206,46 @@ positivityButton.addEventListener("click", function(){
         updateDisplay(displayArray);
     }
 });
+
+function equalsEvent() {
+    if (lastOperand == undefined) {
+        lastOperand = arrayToNumber(displayArray); //if not already set, set the operand to use on successive equals inputs
+    }
+    let result;
+    console.log(`Register: ${registerArray}`);
+    console.log(`Display: ${displayArray}`);
+    console.log(`Last operation: ${lastOperation}`);
+    console.log(`Last operand: ${lastOperand}`);
+    if (registerArray.length && lastOperand != undefined) {
+        if (lastOperation === DIV_OP && lastOperand === 0) {
+            divideByZero();
+        }
+        else {
+            result = operate(lastOperation, registerArray.pop(), lastOperand);
+            clearArray(displayArray);
+            digitToArray(result, displayArray);
+        }
+    }
+
+    else if (lastOperation != undefined && lastOperand != undefined) {
+        if (lastOperation === DIV_OP && lastOperand === 0) {
+            divideByZero();
+        }
+        else {
+            result = operate(lastOperation, arrayToNumber(displayArray), lastOperand);
+            clearArray(displayArray);
+            digitToArray(result, displayArray);
+        }
+    }
+
+    waitingForInput = true;
+    if (hasDecimal) {
+        trimZeros(displayArray);
+        updateDisplay(displayArray);
+        hasDecimal = false;
+        decimalButton.disabled = false;
+    }
+}
 
 function updateDisplay(array){
     const outputBox = document.querySelector("#output-area");
