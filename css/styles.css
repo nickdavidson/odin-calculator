@@ -58,3 +58,23 @@ button:hover {
 #btn-0 {
     grid-column: auto / span 2;
 }
+
+#clear-btn {
+    background-color: rgb(245, 155, 155);
+    color: white;
+}
+
+#backspace-btn {
+    background-color: rgb(245, 155, 155);
+    color: white;
+}
+
+.op-btn {
+    background-color: rgb(160, 189, 233);
+    color: white;
+}
+
+#positivity-btn {
+    background-color: rgb(160, 189, 233);
+    color: white;
+}
