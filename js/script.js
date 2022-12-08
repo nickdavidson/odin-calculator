@@ -1,5 +1,5 @@
 /* TO DO 
-    -Keyboard support
+    -Add operation readouts and history
 */
 
 const DISPLAY_DIGIT_MAX = 14;
