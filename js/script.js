@@ -183,6 +183,7 @@ clearButton.addEventListener("click", function(){
     digitToArray("0", displayArray);
     waitingForInput = true;
     hasDecimal = false;
+    decimalButton.disabled = false;
     updateDisplay(displayArray);
 });
 
