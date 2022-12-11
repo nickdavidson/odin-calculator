@@ -29,6 +29,7 @@ html {
     padding-right: 5px;
     font-size: 2.5rem;
     margin-bottom: 10px;
+    box-shadow: inset 0 0 2px 1px black;
 }
 
 #calculator-buttons {
@@ -46,15 +47,16 @@ button {
     border: 1px solid black;
     font-size: 1.5rem;
     background-color: #efefef;
+    box-shadow: 2px 2px 1px 0 rgb(88, 88, 88);
 }
 
 button:active {
-    background-color: #bbbbbb;
-    transition: 0.2s;
+    /* transition: 0.2s; */
+    box-shadow: inset 2px 2px 5px 0 rgb(70, 70, 70);
 }
 
 button:hover {
-    border: 2px solid black;
+    /* border: 2px solid black; */
 }
 
 #btn-0 {
@@ -62,14 +64,22 @@ button:hover {
 }
 
 #clear-btn {
-    background-color: rgb(245, 155, 155);
+    background-color: rgb(246, 156, 156);
     color: white;
 }
 
+#clear-btn:active {
+    box-shadow: inset 2px 2px 5px 0px rgb(160, 102, 102);
+}
+
 #backspace-btn {
-    background-color: rgb(245, 155, 155);
+    background-color: rgb(246, 156, 156);
     color: white;
-    font-size: 2rem;
+    font-size: 1.75rem;
+}
+
+#backspace-btn:active {
+    box-shadow: inset 2px 2px 5px 0px rgb(160, 102, 102);
 }
 
 .op-btn {
@@ -78,8 +88,16 @@ button:hover {
     font-size: 2rem;
 }
 
+.op-btn:active {
+    box-shadow: inset 2px 2px 5px 0px rgb(120, 142, 175);
+}
+
 #positivity-btn {
     background-color: rgb(160, 189, 233);
     color: white;
     
+}
+
+#positivity-btn:active {
+    box-shadow: inset 2px 2px 5px 0px rgb(120, 142, 175);
 }
