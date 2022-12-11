@@ -202,8 +202,13 @@ positivityButton.addEventListener("click", function(){
 
 function backspaceEvent() {
     if (!waitingForInput) {
+        let displayDigit;
         if (displayArray.length > 1) {
-            displayArray.pop();
+            displayDigit = displayArray.pop();
+            if(displayDigit == "."){
+                hasDecimal = false;
+                decimalButton.disabled = false;
+            }
         } else if (displayArray.length == 1) {
             displayArray[0] = "0";
             waitingForInput = true;
