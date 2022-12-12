@@ -1,9 +1,4 @@
-/* TO DO 
-    -Add operation readouts and history
-*/
-
 const DISPLAY_DIGIT_MAX = 16;
-//const displayArray = new Array(DISPLAY_DIGIT_MAX);
 const displayArray = [];
 const registerArray = [];
 
@@ -321,7 +316,6 @@ function togglePositivity(array){
 }
 
 document.addEventListener('keydown', function(event){
-    event.preventDefault();
     let digitKeys = new RegExp("^[0-9]");
     
     if(!inputDisabled){
@@ -348,10 +342,12 @@ document.addEventListener('keydown', function(event){
         operationEvent(MULT_OP);
     }
     if(event.key=="/"){
+        event.preventDefault();
         operationEvent(DIV_OP);
     }
 
     if(event.key=="Enter" || event.key=="="){
+        event.preventDefault();
         equalsEvent();
     }
 
