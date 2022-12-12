@@ -2,7 +2,7 @@
     -Add operation readouts and history
 */
 
-const DISPLAY_DIGIT_MAX = 14;
+const DISPLAY_DIGIT_MAX = 16;
 //const displayArray = new Array(DISPLAY_DIGIT_MAX);
 const displayArray = [];
 const registerArray = [];
@@ -15,6 +15,7 @@ const DIV_OP = "DIVIDE";
 let waitingForInput = true;
 let hasDecimal = false;
 let isNegative = false;
+let inputDisabled = false;
 
 digitToArray("0", displayArray); //initialize calculator with a 0;
 
@@ -63,6 +64,7 @@ function getNumberOfDigits(number) {
     }
 }
 
+
 const digitButtons = document.querySelectorAll(".digit-btn");
 
 digitButtons.forEach(function(btn) {
@@ -102,6 +104,9 @@ decimalButton.addEventListener("click", function(){
 
 function digitToArray(digit, array){
     array.push(digit);
+    if(array.length==DISPLAY_DIGIT_MAX){
+        toggleInput();
+    }
     updateDisplay(array);
 }
 
@@ -133,6 +138,12 @@ divideButton.addEventListener("click", function(){
 
 function operationEvent(operator){
     console.log(`${operator}`);
+    if(inputDisabled){
+        toggleInput();
+        console.log("toggle input");
+        inputDisabled = false;
+    }
+
     if(registerArray.length && lastOperand==undefined){              //if there is something in the register, and there is no final operand
         if(!waitingForInput){                                       //and not waiting for input
             let num1 = registerArray.pop();
@@ -176,6 +187,11 @@ equalsButton.addEventListener("click", function(){
 
 const clearButton = document.querySelector('#clear-btn');
 clearButton.addEventListener("click", function(){
+    if(inputDisabled){
+        toggleInput();
+        console.log("toggle input");
+        inputDisabled = false;
+    }
     clearArray(displayArray);
     clearArray(registerArray);
     lastOperation = undefined;
@@ -201,6 +217,13 @@ positivityButton.addEventListener("click", function(){
 });
 
 function backspaceEvent() {
+    console.log("backspace");
+    if(inputDisabled){
+        toggleInput();
+        console.log("toggle input");
+        inputDisabled = false;
+    }
+
     if (!waitingForInput) {
         let displayDigit;
         if (displayArray.length > 1) {
@@ -218,6 +241,9 @@ function backspaceEvent() {
 }
 
 function equalsEvent() {
+    if(inputDisabled){
+        toggleInput();
+    }
     if (lastOperand == undefined) {
         lastOperand = arrayToNumber(displayArray); //if not already set, set the operand to use on successive equals inputs
     }
@@ -307,15 +333,17 @@ document.addEventListener('keydown', function(event){
     console.log(`Key: ${event.key} Type: ${typeof(event.key)}`);
     let digitKeys = new RegExp("^[0-9]");
     
-    if(event.key.match(digitKeys)){
-        digitInputEvent(event.key);
-    }
-
-    if(event.key=="."){
-        if(!hasDecimal){
+    if(!inputDisabled){
+        if(event.key.match(digitKeys)){
             digitInputEvent(event.key);
-            hasDecimal = true;
-            decimalButton.disabled = true;
+        }
+    
+        if(event.key=="."){
+            if(!hasDecimal){
+                digitInputEvent(event.key);
+                hasDecimal = true;
+                decimalButton.disabled = true;
+            }
         }
     }
 
@@ -340,3 +368,25 @@ document.addEventListener('keydown', function(event){
         backspaceEvent();
     }
 });
+
+function toggleInput() {
+    let buttons = document.querySelectorAll(".digit-btn");
+
+    if(inputDisabled){
+        buttons.forEach(function(btn) {
+                btn.disabled = false;
+                if(hasDecimal && btn.textContent=="."){
+                    btn.disabled = true;
+                }
+                inputDisabled = false;
+            });
+    } else if(!inputDisabled) {
+        buttons.forEach(function(btn) {
+                btn.disabled = true;
+                inputDisabled = true;
+        });
+    }
+    
+    
+
+}
