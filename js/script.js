@@ -44,7 +44,6 @@ function operate(operator, num1, num2){
 
     while(resultStr.charAt(resultStr.length-1)=="0"){
         resultStr = resultStr.slice(0, -1);
-        console.log("hit" + " " + resultStr);
     }
 
     return Number(resultStr);
@@ -93,7 +92,6 @@ function digitInputEvent(digitString){
         }
         digitToArray(digitString, displayArray);    //accept digit entry into array
     }
-    console.log(displayArray);
 }
 
 const decimalButton = document.querySelector("#dec-btn");
@@ -137,10 +135,8 @@ divideButton.addEventListener("click", function(){
 });
 
 function operationEvent(operator){
-    console.log(`${operator}`);
     if(inputDisabled){
         toggleInput();
-        console.log("toggle input");
         inputDisabled = false;
     }
 
@@ -175,7 +171,6 @@ function operationEvent(operator){
         hasDecimal = false;
         decimalButton.disabled = false;
     }
-    console.log(registerArray);
 }
 
 let lastOperand;
@@ -189,7 +184,6 @@ const clearButton = document.querySelector('#clear-btn');
 clearButton.addEventListener("click", function(){
     if(inputDisabled){
         toggleInput();
-        console.log("toggle input");
         inputDisabled = false;
     }
     clearArray(displayArray);
@@ -217,10 +211,8 @@ positivityButton.addEventListener("click", function(){
 });
 
 function backspaceEvent() {
-    console.log("backspace");
     if(inputDisabled){
         toggleInput();
-        console.log("toggle input");
         inputDisabled = false;
     }
 
@@ -248,10 +240,10 @@ function equalsEvent() {
         lastOperand = arrayToNumber(displayArray); //if not already set, set the operand to use on successive equals inputs
     }
     let result;
-    console.log(`Register: ${registerArray}`);
-    console.log(`Display: ${displayArray}`);
-    console.log(`Last operation: ${lastOperation}`);
-    console.log(`Last operand: ${lastOperand}`);
+    // console.log(`Register: ${registerArray}`);
+    // console.log(`Display: ${displayArray}`);
+    // console.log(`Last operation: ${lastOperation}`);
+    // console.log(`Last operand: ${lastOperand}`);
     if (registerArray.length && lastOperand != undefined) {
         if (lastOperation === DIV_OP && lastOperand === 0) {
             divideByZero();
@@ -330,7 +322,6 @@ function togglePositivity(array){
 
 document.addEventListener('keydown', function(event){
     event.preventDefault();
-    console.log(`Key: ${event.key} Type: ${typeof(event.key)}`);
     let digitKeys = new RegExp("^[0-9]");
     
     if(!inputDisabled){
